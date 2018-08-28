@@ -5,6 +5,17 @@ function Preprocess,orignalfile,outfile,error=error
 ;  envi_batch_status_window,/on  
   e=call_function('envi',/headless)
   
+  xmlfile=file_dirname(orignalfile)+path_sep()+file_basename(orignalfile,'.tiff')+'.xml'
+  rpbfile=file_dirname(orignalfile)+path_sep()+file_basename(orignalfile,'.tiff')+'.rpb'
+  if ~file_test(xmlfile) then begin
+    error=xmlfile+'文件不存在!'
+    return,0
+  endif
+  if ~file_test(rpbfile) then begin
+    error=rpbfile+'文件不存在!'
+    return,0
+  endif
+  
   ;读取原始数据相关信息
   xmlfile=file_dirname(orignalfile)+path_sep()+file_basename(orignalfile,'.tiff')+'.xml'
   ret=ReadInfo(xmlfile,satellite,sensor,year,month,day,gmt,latitude,longitude,latrange,lonrange,error=error)
@@ -54,12 +65,20 @@ function Preprocess,orignalfile,outfile,error=error
   endif
     
   ;Flaash大气校正  
-  ret=Flaash(radfile,satellite,sensor,year,month,day,gmt,latitude,longitude,latrange,lonrange,outfile,error=error)
+  reffile=!tempdir+file_basename(outfile,'.tiff')+'_Reflectance.tiff'
+  ret=Flaash(radfile,satellite,sensor,year,month,day,gmt,latitude,longitude,latrange,lonrange,reffile,error=error)
   if ret ne 1 then begin
     error='Flaash大气校正失败!---'+error
     print,error
-    return, 0
-  endif  
+    return,0
+  endif 
+
+  ret=Orthorpc(reffile,rpbfile,satellite,sensor,outfile,error=error)
+  if ret ne 1 then begin
+    error='正射校正失败!---'+error
+    print,error
+    return,0
+  endif
   
   return,1
 end
@@ -230,9 +249,18 @@ function Calibrate,year,satellite,sensor,inputfile,gain,offset,radfile,error=err
     return,0
   endif  
 
-  if ~file_test(inputfile) then return, '辐射定标...原始数据不存在!'
-  if n_elements(gain) eq 0 then return, '辐射定标...增益值未指定!'
-  if n_elements(offset) eq 0 then return, '辐射定标...偏差值未指定!'
+  if ~file_test(inputfile) then begin
+    error='原始数据不存在!
+    return,0
+  endif
+  if n_elements(gain) eq 0 then begin
+    error='增益值未指定!'
+    return,0
+  endif
+  if n_elements(offset) eq 0 then begin
+    error='偏差值未指定!'
+    return,0
+  endif
 
   ;辐射定标
   call_procedure, 'envi_open_file', inputfile, r_fid=tfid
@@ -642,6 +670,227 @@ function Flaash,radfile,satellite,sensor,year,month,day,gmt,latitude,longitude,l
     error='大气校正结果转TIFF格式失败!'
     return,0
   endif
+  
+  return,1
+end
+
+pro Rpb2rpc,rpbfile,rpcfile
+  compile_opt idl2
+  
+  coeff = DBLARR(90)
+  
+  openr,lun,rpbfile,/get_lun
+  line = ''
+  while ~eof(lun) do begin
+    readf,lun,line
+    lines = strsplit(line,' =);',/extract)
+    print,lines[0],'==',lines
+    case strtrim(lines[0],2) of
+      'lineOffset': coeff[0]=double(lines[1])
+      'sampOffset': coeff[1]=double(lines[1])
+      'latOffset': coeff[2]=double(lines[1])
+      'longOffset': coeff[3]=double(lines[1])
+      'heightOffset': coeff[4]=double(lines[1])
+      'lineScale': coeff[5]=double(lines[1])
+      'sampScale': coeff[6]=double(lines[1])
+      'latScale': coeff[7]=double(lines[1])
+      'longScale': coeff[8]=double(lines[1])
+      'heightScale': coeff[9]=double(lines[1])
+      'lineNumCoef': begin
+        for i=0,19 do begin
+          readf,lun,line
+          lines = strsplit(line,' ,',/extract)
+          coeff[10+i] = double(lines[0])
+        endfor
+      end
+      'lineDenCoef': begin
+        for i=0,19 do begin
+          readf,lun,line
+          lines = strsplit(line,' ,',/extract)
+          coeff[30+i] = double(lines[0])
+        endfor
+      end
+      'sampNumCoef': begin
+        for i=0,19 do begin
+          readf,lun,line
+          lines = strsplit(line,' ,',/extract)
+          coeff[50+i] = double(lines[0])
+        endfor
+      end
+      'sampDenCoef': begin
+        for i=0,19 do begin
+          readf,lun,line
+          lines = strsplit(line,' ,',/extract)
+          coeff[70+i] = double(lines[0])
+        endfor
+      end
+      else:
+    endcase
+  endwhile
+  free_lun,lun  
+  
+  OPENW,rpcLun,RPCFile,/get_lun
+  sign = Coeff[0] GE 0 ? '+' : ''
+  PRINTF,rpcLun,Coeff[0],format='("LINE_OFF: '+sign+'", (d0.10), " pixels")'
+  sign = Coeff[1] GE 0 ? '+' : ''
+  PRINTF,rpcLun,Coeff[1],format='("SAMP_OFF: '+sign+'", (d0.10), " pixels")'
+  sign = Coeff[2] GE 0 ? '+' : ''
+  PRINTF,rpcLun,Coeff[2],format='("LAT_OFF: '+sign+'", (d0.10), " degrees")'
+  sign = Coeff[3] GE 0 ? '+' : ''
+  PRINTF,rpcLun,Coeff[3],format='("LONG_OFF: '+sign+'", (d0.10), " degrees")'
+  sign = Coeff[4] GE 0 ? '+' : ''
+  PRINTF,rpcLun,Coeff[4],format='("HEIGHT_OFF: '+sign+'", (d0.10), " meters")'
+  sign = Coeff[5] GE 0 ? '+' : ''
+  PRINTF,rpcLun,Coeff[5],format='("LINE_SCALE: '+sign+'", (d0.10), " pixels")'
+  sign = Coeff[6] GE 0 ? '+' : ''
+  PRINTF,rpcLun,Coeff[6],format='("SAMP_SCALE: '+sign+'", (d0.10), " pixels")'
+  sign = Coeff[7] GE 0 ? '+' : ''
+  PRINTF,rpcLun,Coeff[7],format='("LAT_SCALE: '+sign+'", (d0.10), " degrees")'
+  sign = Coeff[8] GE 0 ? '+' : ''
+  PRINTF,rpcLun,Coeff[8],format='("LONG_SCALE: '+sign+'", (d0.10), " degrees")'
+  sign = Coeff[9] GE 0 ? '+' : ''
+  PRINTF,rpcLun,Coeff[9],format='("HEIGHT_SCALE: '+sign+'", (d0.10), " meters")'
+  
+  ;LINE NUM
+  FOR i=10,29 DO BEGIN
+    sign = Coeff[i] GE 0 ? '+' : ''
+    PRINTF,rpcLun,Coeff[i],format='("LINE_NUM_COEFF_'+STRTRIM(STRING(i+1-10),2)+': '+sign+'", E0.20)'
+  ENDFOR
+  ;LINE DEN
+  FOR i=30,49 DO BEGIN
+    sign = Coeff[i] GE 0 ? '+' : ''
+    PRINTF,rpcLun,Coeff[i],format='("LINE_DEN_COEFF_'+STRTRIM(STRING(i+1-30),2)+': '+sign+'", E0.20)'
+  ENDFOR
+  ;SAMPLE NUM
+  FOR i=50,69 DO BEGIN
+    sign = Coeff[i] GE 0 ? '+' : ''
+    PRINTF,rpcLun,Coeff[i],format='("SAMP_NUM_COEFF_'+STRTRIM(STRING(i+1-50),2)+': '+sign+'", E0.20)'
+  ENDFOR
+  ;SAMPLE DEN
+  FOR i=70,89 DO BEGIN
+    sign = Coeff[i] GE 0 ? '+' : ''
+    PRINTF,rpcLun,Coeff[i],format='("SAMP_DEN_COEFF_'+STRTRIM(STRING(i+1-70),2)+': '+sign+'", E0.20)'
+  ENDFOR
+  
+  FREE_LUN,rpcLun
+end
+
+
+function Getrpc, rpcfile
+  compile_opt idl2
+
+  line = ''
+  openr,lun,rpcfile,/get_lun
+  strs = strarr(90)
+  readf,lun,strs
+  free_lun,lun
+
+  tempCoeff = dblarr(90)
+  for i=0,89 do begin
+    tempCoeff[i] = double((strsplit(strs[i],': ',/extract))[1])
+  endfor
+
+  Coeff = dblarr(93)
+  Coeff[0] = tempCoeff[0]
+  Coeff[1] = tempCoeff[1]
+  Coeff[2] = tempCoeff[2]
+  Coeff[3] = tempCoeff[3]
+  Coeff[4] = tempCoeff[4]
+  Coeff[5] = tempCoeff[5]
+  Coeff[6] = tempCoeff[6]
+  Coeff[7] = tempCoeff[7]
+  Coeff[8] = tempCoeff[8]
+  Coeff[9] = tempCoeff[9]
+  Coeff[10:29] = tempCoeff[10:29]
+  Coeff[30:49] = tempCoeff[30:49]
+  Coeff[50:69] = tempCoeff[50:69]
+  Coeff[70:89] = tempCoeff[70:89]
+  Coeff[90:92] = [0,0,1]
+
+  return,Coeff
+end
+
+
+function Orthorpc,infile,rpbfile,satellite,sensor,geofile,error=error
+  compile_opt idl2
+  
+  if ~file_test(file_dirname(geofile)) then file_mkdir,file_dirname(geofile)
+
+  rpcfile=file_dirname(infile)+'\'+file_basename(infile,'.tiff')+'.rpb'
+  file_copy,rpbfile,rpcfile,/overwrite
+  rpcfile_=file_dirname(infile)+'\'+file_basename(infile,'.tiff')+'_.rpc'
+  Rpb2rpc, rpcfile, rpcfile_
+  coeff=Getrpc(rpcfile_)
+
+  zone = fix(fix(coeff[3])/6.)+31
+  file_delete, rpcfile_
+
+  case satellite of
+    'GF1': begin
+      if strmid(sensor,0,3) eq 'PMS' then res=8 else res=16
+    end
+    'GF2': res=4
+    else: begin
+      error='卫星类型输入有误!'
+      return,0
+    endelse
+  endcase
+
+  resamplemethod='bilinear';'near';'cubic';
+
+  ; GDAL正射校正
+  ;  currentdir=routine_filepath('GF_Orthorpc__define')
+  ;  pricurrentdir=file_dirname(file_dirname(currentdir))
+  ;  gdalwarp=pricurrentdir+'\Resource\gdalwin32-1.6\bin\'+'gdalwarp.exe'
+  ;  spawn, gdalwarp + ' -of GTiff' + ' -t_srs "+proj=utm +datum=WGS84 +zone=' + strtrim(string(zone),2) + '"' + $
+  ;    ' -multi' + ' -r' + ' ' + resamplemethod + ' -rpc' + ' -to' + ' "RPC_DEM=' + self.demfile + '"' + ' -tr' + $
+  ;    ' ' + strtrim(string(res),2) + ' ' + strtrim(string(res),2) + ' ' + infile + ' ' + geofile, /noshell, /hide
+
+  ; ENVI正射校正
+  ;  reffile_dat=file_dirname(geofile)+'\'+file_basename(geofile,'.tiff')+'.dat'
+  
+  demfile=!resourcedir+'GMTED2010.jp2'
+  
+  envi_=call_function('envi',/headless)
+  raster=envi_->OpenRaster(infile)
+  dem=envi_->OpenRaster(demfile)
+
+  tempfile=!tempdir+file_basename(geofile,'.tiff')+'_.dat'
+  task=ENVITask('RPCOrthorectification')
+  task.input_raster=raster
+  task.dem_raster=dem
+  task.output_pixel_size=res
+  task.grid_spacing=10
+  task.output_raster_uri=tempfile
+
+  task->execute, error=error_
+
+  raster->close
+  dem->close
+  if ~file_test(tempfile) then begin
+    error=error_
+    return,0
+  endif
+
+  call_procedure, 'envi_open_file', tempfile, r_fid=tfid
+  call_procedure, 'envi_file_query', tfid, dims=dims, ns=ns, nl=nl, nb=nb
+  call_procedure, 'envi_output_to_external_format', $
+    fid=tfid, $
+    dims=dims, $
+    pos=indgen(nb), $
+    out_name=geofile, $
+    /tiff
+
+  if ~file_test(geofile) then begin
+    error='转TIFF格式失败!'
+    return,0
+  endif
+  if file_test(rpcfile) then file_delete, rpcfile
+  tfwfile=file_dirname(geofile)+path_sep()+file_basename(geofile,'.tiff')+'.tfw'
+  if file_test(tfwfile) then file_delete,tfwfile
+  call_procedure,'envi_file_mng',id=tfid,/remove,/delete
+  call_procedure,'envi_open_file',infile,r_fid=tfid
+  call_procedure,'envi_file_mng',id=tfid,/remove, /delete
   
   return,1
 end

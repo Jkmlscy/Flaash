@@ -36,6 +36,8 @@ function GetNDVI,infile,ndvifile,error=error
     out_name=ndvifile, $
     /tiff
   call_procedure,'envi_file_mng', id=tfid, /remove, /delete
+  tfwfile=file_dirname(ndvifile)+path_sep()+file_basename(ndvifile,'.tiff')+'.tfw'
+  if file_test(tfwfile) then file_delete,tfwfile
   if ~file_test(ndvifile) then begin
     error='NDVI结果转TIFF格式失败!'
     return,0
