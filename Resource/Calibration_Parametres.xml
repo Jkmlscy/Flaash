@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="GB2312" standalone="no" ?>
+<Configurations>
+    <Year value="2013">
+	  <Satellite name="GF1">
+		<Sensor name="PMS1">
+		  <Element name="Band1" value="0.2082,4.6186,1944.98" />      
+		  <Element name="Band2" value="0.1672,4.8768,1854.42" />
+		  <Element name="Band3" value="0.1748,4.8924,1542.63" />
+		  <Element name="Band4" value="0.1883,-9.4771,1080.81" />
+		  <Element name="Pan" value="0.1886,-13.127,1371.53" />
+		</Sensor>
+		<Sensor name="PMS2"> 
+		  <Element name="Band1" value="0.2072,7.5348,1945.34" />
+		  <Element name="Band2" value="0.1776,3.9395,1854.15" />
+		  <Element name="Band3" value="0.1770,-1.7445,1543.62" />
+		  <Element name="Band4" value="0.1909,-7.2053,1081.93" />
+		  <Element name="Pan" value="0.1878,-7.9731,1376.10" />
+		</Sensor>
+		<Sensor name="WFV1">
+		  <Element name="Band1" value="5.851,0.0039,1968.66" />
+		  <Element name="Band2" value="7.153,0.0047,1849.43" />
+		  <Element name="Band3" value="8.368,0.0030,1570.88" />
+		  <Element name="Band4" value="7.474,0.0274,1078.97" />
+		</Sensor>
+		<Sensor name="WFV2" value="">
+		  <Element name="Band1" value="6.014,0.0125,1955.02" />
+		  <Element name="Band2" value="6.823,0.0193,1847.56" />
+		  <Element name="Band3" value="9.451,0.0429,1568.89" />
+		  <Element name="Band4" value="8.996,0.0011,1087.96" />
+		</Sensor>
+		<Sensor name="WFV3">
+		  <Element name="Band1" value="5.820,0.0071,1956.54" />
+		  <Element name="Band2" value="6.239,0.0334,1840.78" />
+		  <Element name="Band3" value="7.010,0.0226,1540.95" />
+		  <Element name="Band4" value="7.711,0.0117,1083.98" />
+		</Sensor>
+		<Sensor name="WFV4">
+		  <Element name="Band1" value="5.350,0.0369,1968.12" />
+		  <Element name="Band2" value="6.235,0.0235,1841.69" />
+		  <Element name="Band3" value="6.992,0.0217,1540.30" />
+		  <Element name="Band4" value="7.462,0.0050,1069.53" />
+		</Sensor>	
+	  </Satellite>
+   </Year>
+   <Year value="2014">
+	  <Satellite name="GF1">
+		<Sensor name="PMS1">
+		  <Element name="Band1" value="0.2247,0,1944.98" />      
+		  <Element name="Band2" value="0.1892,0,1854.42" />
+		  <Element name="Band3" value="0.1889,0,1542.63" />
+		  <Element name="Band4" value="0.1939,0,1080.81" />
+		  <Element name="Pan" value="0.1963,0,1371.53" />
+		</Sensor>
+		<Sensor name="PMS2"> 
+		  <Element name="Band1" value="0.2419,0,1945.34" />
+		  <Element name="Band2" value="0.2047,0,1854.15" />
+		  <Element name="Band3" value="0.2009,0,1543.62" />
+		  <Element name="Band4" value="0.2058,0,1081.93" />
+		  <Element name="Pan" value="0.2147,0,1376.10" />
+		</Sensor>
+		<Sensor name="WFV1">
+		  <Element name="Band1" value="0.2004,0,1968.66" />
+		  <Element name="Band2" value="0.1648,0,1849.43" />
+		  <Element name="Band3" value="0.1243,0,1570.88" />
+		  <Element name="Band4" value="0.1563,0,1078.97" />
+		</Sensor>
+		<Sensor name="WFV2" value="">
+		  <Element name="Band1" value="0.1733,0,1955.02" />
+		  <Element name="Band2" value="0.1383,0,1847.56" />
+		  <Element name="Band3" value="0.1122,0,1568.89" />
+		  <Element name="Band4" value="0.1391,0,1087.96" />
+		</Sensor>
+		<Sensor name="WFV3">
+		  <Element name="Band1" value="0.1745,0,1956.54" />
+		  <Element name="Band2" value="0.1514,0,1840.78" />
+		  <Element name="Band3" value="0.1257,0,1540.95" />
+		  <Element name="Band4" value="0.1462,0,1083.98" />
+		</Sensor>
+		<Sensor name="WFV4">
+		  <Element name="Band1" value="0.1713,0,1968.12" />
+		  <Element name="Band2" value="0.1600,0,1841.69" />
+		  <Element name="Band3" value="0.1497,0,1540.30" />
+		  <Element name="Band4" value="0.1435,0,1069.53" />
+		</Sensor>	
+	  </Satellite>
+	  <Satellite name="GF2">
+		<Sensor name="PMS1">
+		  <Element name="Band1" value="0.1585,-0.8765,1941.53" />
+		  <Element name="Band2" value="0.1883,-0.9742,1854.15" />
+		  <Element name="Band3" value="0.1740,-0.7652,1541.48" />
+		  <Element name="Band4" value="0.1897,-0.7233,1086.43" />
+		  <Element name="Pan" value="0.1630,-0.6077,1364.03" />
+		</Sensor>
+		<Sensor name="PMS2">
+		  <Element name="Band1" value="0.1748,-0.5930,1940.93" />
+		  <Element name="Band2" value="0.1817,-0.2717,1853.99" />
+		  <Element name="Band3" value="0.1741,-0.2879,1541.39" />
+		  <Element name="Band4" value="0.1975,-0.2773,1086.51" />
+		  <Element name="Pan" value="0.1823,0.1654,1361.93" />
+		</Sensor>
+	  </Satellite>
+   </Year>
+   <Year value="2015">
+	  <Satellite name="GF1">
+		<Sensor name="PMS1">
+		  <Element name="Band1" value="0.2110,0,1944.98" />      
+		  <Element name="Band2" value="0.1802,0,1854.42" />
+		  <Element name="Band3" value="0.1806,0,1542.63" />
+		  <Element name="Band4" value="0.1870,0,1080.81" />
+		  <Element name="Pan" value="0.1956,0,1371.53" />
+		</Sensor>
+		<Sensor name="PMS2"> 
+		  <Element name="Band1" value="0.2242,0,1945.34" />
+		  <Element name="Band2" value="0.1887,0,1854.15" />
+		  <Element name="Band3" value="0.1882,0,1543.62" />
+		  <Element name="Band4" value="0.1963,0,1081.93" />
+		  <Element name="Pan" value="0.2018,0,1376.10" />
+		</Sensor>
+		<Sensor name="WFV1">
+		  <Element name="Band1" value="0.1816,0,1968.66" />
+		  <Element name="Band2" value="0.1560,0,1849.43" />
+		  <Element name="Band3" value="0.1412,0,1570.88" />
+		  <Element name="Band4" value="0.1368,0,1078.97" />
+		</Sensor>
+		<Sensor name="WFV2" value="">
+		  <Element name="Band1" value="0.1684,0,1955.02" />
+		  <Element name="Band2" value="0.1527,0,1847.56" />
+		  <Element name="Band3" value="0.1373,0,1568.89" />
+		  <Element name="Band4" value="0.1263,0,1087.96" />
+		</Sensor>
+		<Sensor name="WFV3">
+		  <Element name="Band1" value="0.1770,0,1956.54" />
+		  <Element name="Band2" value="0.1589,0,1840.78" />
+		  <Element name="Band3" value="0.1385,0,1540.95" />
+		  <Element name="Band4" value="0.1344,0,1083.98" />
+		</Sensor>
+		<Sensor name="WFV4">
+		  <Element name="Band1" value="0.1886,0,1968.12" />
+		  <Element name="Band2" value="0.1645,0,1841.69" />
+		  <Element name="Band3" value="0.1467,0,1540.30" />
+		  <Element name="Band4" value="0.1378,0,1069.53" />
+		</Sensor>	
+	  </Satellite>
+	  <Satellite name="GF2">
+		<Sensor name="PMS1">
+		  <Element name="Band1" value="0.1585,-0.8765,1941.53" />
+		  <Element name="Band2" value="0.1883,-0.9742,1854.15" />
+		  <Element name="Band3" value="0.1740,-0.7652,1541.48" />
+		  <Element name="Band4" value="0.1897,-0.7233,1086.43" />
+		  <Element name="Pan" value="0.1630,-0.6077,1364.03" />
+		</Sensor>
+		<Sensor name="PMS2">
+		  <Element name="Band1" value="0.1748,-0.5930,1940.93" />
+		  <Element name="Band2" value="0.1817,-0.2717,1853.99" />
+		  <Element name="Band3" value="0.1741,-0.2879,1541.39" />
+		  <Element name="Band4" value="0.1975,-0.2773,1086.51" />
+		  <Element name="Pan" value="0.1823,0.1654,1361.93" />
+		</Sensor>
+	  </Satellite>
+   </Year>
+   <Year value="2016">
+	  <Satellite name="GF1">
+		<Sensor name="PMS1">
+		  <Element name="Band1" value="0.232,0,1944.98" />      
+		  <Element name="Band2" value="0.187,0,1854.42" />
+		  <Element name="Band3" value="0.1795,0,1542.63" />
+		  <Element name="Band4" value="0.196,0,1080.81" />
+		  <Element name="Pan" value="0.1982,0,1371.53" />
+		</Sensor>
+		<Sensor name="PMS2"> 
+		  <Element name="Band1" value="0.224,0,1945.34" />
+		  <Element name="Band2" value="0.1851,0,1854.15" />
+		  <Element name="Band3" value="0.1793,0,1543.62" />
+		  <Element name="Band4" value="0.1863,0,1081.93" />
+		  <Element name="Pan" value="0.1979,0,1376.10" />
+		</Sensor>
+		<Sensor name="WFV1">
+		  <Element name="Band1" value="0.1843,0,1968.66" />
+		  <Element name="Band2" value="0.1477,0,1849.43" />
+		  <Element name="Band3" value="0.122,0,1570.88" />
+		  <Element name="Band4" value="0.1365,0,1078.97" />
+		</Sensor>
+		<Sensor name="WFV2" value="">
+		  <Element name="Band1" value="0.1929,0,1955.02" />
+		  <Element name="Band2" value="0.154,0,1847.56" />
+		  <Element name="Band3" value="0.1349,0,1568.89" />
+		  <Element name="Band4" value="0.1359,0,1087.96" />
+		</Sensor>
+		<Sensor name="WFV3">
+		  <Element name="Band1" value="0.1753,0,1956.54" />
+		  <Element name="Band2" value="0.1565,0,1840.78" />
+		  <Element name="Band3" value="0.148,0,1540.95" />
+		  <Element name="Band4" value="0.1322,0,1083.98" />
+		</Sensor>
+		<Sensor name="WFV4">
+		  <Element name="Band1" value="0.1973,0,1968.12" />
+		  <Element name="Band2" value="0.1714,0,1841.69" />
+		  <Element name="Band3" value="0.15,0,1540.30" />
+		  <Element name="Band4" value="0.1572,0,1069.53" />
+		</Sensor>	
+	  </Satellite>
+	  <Satellite name="GF2">
+		<Sensor name="PMS1">
+		  <Element name="Band1" value="0.1322,0,1941.53" />
+		  <Element name="Band2" value="0.1550,0,1854.15" />
+		  <Element name="Band3" value="0.1477,0,1541.48" />
+		  <Element name="Band4" value="0.1613,0,1086.43" />
+		  <Element name="Pan" value="0.1501,0,1364.03" />
+		</Sensor>
+		<Sensor name="PMS2">
+		  <Element name="Band1" value="0.1762,0,1940.93" />
+		  <Element name="Band2" value="0.1856,0,1853.99" />
+		  <Element name="Band3" value="0.1754,0,1541.39" />
+		  <Element name="Band4" value="0.1980,0,1086.51" />
+		  <Element name="Pan" value="0.1863,0,1361.93" />
+		</Sensor>
+	  </Satellite>
+   </Year>
+   <Year value="2017">
+	  <Satellite name="GF1">
+		<Sensor name="PMS1">
+		  <Element name="Band1" value="0.1424,0,1944.98" />      
+		  <Element name="Band2" value="0.1177,0,1854.42" />
+		  <Element name="Band3" value="0.1194,0,1542.63" />
+		  <Element name="Band4" value="0.1135,0,1080.81" />
+		  <Element name="Pan" value="0.1228,0,1371.53" />
+		</Sensor>
+		<Sensor name="PMS2"> 
+		  <Element name="Band1" value="0.1460,0,1945.34" />
+		  <Element name="Band2" value="0.1248,0,1854.15" />
+		  <Element name="Band3" value="0.1274,0,1543.62" />
+		  <Element name="Band4" value="0.1255,0,1081.93" />
+		  <Element name="Pan" value="0.1365,0,1376.10" />
+		</Sensor>
+		<Sensor name="WFV1">
+		  <Element name="Band1" value="0.2165,0,1968.66" />
+		  <Element name="Band2" value="0.1685,0,1849.43" />
+		  <Element name="Band3" value="0.1354,0,1570.88" />
+		  <Element name="Band4" value="0.1507,0,1078.97" />
+		</Sensor>
+		<Sensor name="WFV2" value="">
+		  <Element name="Band1" value="0.2097,0,1955.02" />
+		  <Element name="Band2" value="0.1630,0,1847.56" />
+		  <Element name="Band3" value="0.1339,0,1568.89" />
+		  <Element name="Band4" value="0.1521,0,1087.96" />
+		</Sensor>
+		<Sensor name="WFV3">
+		  <Element name="Band1" value="0.1870,0,1956.54" />
+		  <Element name="Band2" value="0.1619,0,1840.78" />
+		  <Element name="Band3" value="0.1295,0,1540.95" />
+		  <Element name="Band4" value="0.1383,0,1083.98" />
+		</Sensor>
+		<Sensor name="WFV4">
+		  <Element name="Band1" value="0.1770,0,1968.12" />
+		  <Element name="Band2" value="0.1521,0,1841.69" />
+		  <Element name="Band3" value="0.1322,0,1540.30" />
+		  <Element name="Band4" value="0.1349,0,1069.53" />
+		</Sensor>	
+	  </Satellite>
+	  <Satellite name="GF2">
+		<Sensor name="PMS1">
+		  <Element name="Band1" value="0.1193,0,1941.53" />
+		  <Element name="Band2" value="0.1530,0,1854.15" />
+		  <Element name="Band3" value="0.1424,0,1541.48" />
+		  <Element name="Band4" value="0.1569,0,1086.43" />
+		  <Element name="Pan" value="0.1503,0,1364.03" />
+		</Sensor>
+		<Sensor name="PMS2">
+		  <Element name="Band1" value="0.1434,0,1940.93" />
+		  <Element name="Band2" value="0.1595,0,1853.99" />
+		  <Element name="Band3" value="0.1511,0,1541.39" />
+		  <Element name="Band4" value="0.1685,0,1086.51" />
+		  <Element name="Pan" value="0.1679,0,1361.93" />
+		</Sensor>
+	  </Satellite>   
+   </Year>
+   <Year value="2018">
+	  <Satellite name="GF1">
+		<Sensor name="PMS1">
+		  <Element name="Band1" value="0.1424,0,1944.98" />      
+		  <Element name="Band2" value="0.1177,0,1854.42" />
+		  <Element name="Band3" value="0.1194,0,1542.63" />
+		  <Element name="Band4" value="0.1135,0,1080.81" />
+		  <Element name="Pan" value="0.1228,0,1371.53" />
+		</Sensor>
+		<Sensor name="PMS2"> 
+		  <Element name="Band1" value="0.1460,0,1945.34" />
+		  <Element name="Band2" value="0.1248,0,1854.15" />
+		  <Element name="Band3" value="0.1274,0,1543.62" />
+		  <Element name="Band4" value="0.1255,0,1081.93" />
+		  <Element name="Pan" value="0.1365,0,1376.10" />
+		</Sensor>
+		<Sensor name="WFV1">
+		  <Element name="Band1" value="0.2165,0,1968.66" />
+		  <Element name="Band2" value="0.1685,0,1849.43" />
+		  <Element name="Band3" value="0.1354,0,1570.88" />
+		  <Element name="Band4" value="0.1507,0,1078.97" />
+		</Sensor>
+		<Sensor name="WFV2" value="">
+		  <Element name="Band1" value="0.2097,0,1955.02" />
+		  <Element name="Band2" value="0.1630,0,1847.56" />
+		  <Element name="Band3" value="0.1339,0,1568.89" />
+		  <Element name="Band4" value="0.1521,0,1087.96" />
+		</Sensor>
+		<Sensor name="WFV3">
+		  <Element name="Band1" value="0.1870,0,1956.54" />
+		  <Element name="Band2" value="0.1619,0,1840.78" />
+		  <Element name="Band3" value="0.1295,0,1540.95" />
+		  <Element name="Band4" value="0.1383,0,1083.98" />
+		</Sensor>
+		<Sensor name="WFV4">
+		  <Element name="Band1" value="0.1770,0,1968.12" />
+		  <Element name="Band2" value="0.1521,0,1841.69" />
+		  <Element name="Band3" value="0.1322,0,1540.30" />
+		  <Element name="Band4" value="0.1349,0,1069.53" />
+		</Sensor>	
+	  </Satellite>
+	  <Satellite name="GF2">
+		<Sensor name="PMS1">
+		  <Element name="Band1" value="0.1193,0,1941.53" />
+		  <Element name="Band2" value="0.1530,0,1854.15" />
+		  <Element name="Band3" value="0.1424,0,1541.48" />
+		  <Element name="Band4" value="0.1569,0,1086.43" />
+		  <Element name="Pan" value="0.1503,0,1364.03" />
+		</Sensor>
+		<Sensor name="PMS2">
+		  <Element name="Band1" value="0.1434,0,1940.93" />
+		  <Element name="Band2" value="0.1595,0,1853.99" />
+		  <Element name="Band3" value="0.1511,0,1541.39" />
+		  <Element name="Band4" value="0.1685,0,1086.51" />
+		  <Element name="Pan" value="0.1679,0,1361.93" />
+		</Sensor>
+	  </Satellite>   
+   </Year>    
+</Configurations>
